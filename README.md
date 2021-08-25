@@ -11,7 +11,7 @@ Time spent: **6** hours spent in total
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/ySlOQoV.mp4' title='Demo for Instabot' />
+<img src='https://i.imgur.com/ySlOQoV.mp4' title=' Demo for Instabot' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 

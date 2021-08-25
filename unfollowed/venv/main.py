@@ -33,16 +33,34 @@ class Instabot:
         sleep(2)
         self.driver.find_element_by_xpath("//a[contains(@href,'/following')]")\
             .click()
-        following = self._get_names()
+        following = self._get_names_following()
         self.driver.find_element_by_xpath("//a[contains(@href,'/followers')]")\
             .click()
-        followers = self._get_names()
+        followers = self._get_names_followers()
         not_following_back = [user for user in following if user not in followers]
         print(not_following_back)
 
-    def _get_names(self):
+    def _get_names_following(self):
         sleep(2)
         scroll_box = self.driver.find_element_by_xpath("/html/body/div[6]/div/div/div[3]")
+        last_ht, ht = 0, 1
+        while last_ht != ht:
+            last_ht = ht
+            sleep(1)
+            ht = self.driver.execute_script("""
+                arguments[0].scrollTo(0, arguments[0].scrollHeight); 
+                return arguments[0].scrollHeight;
+                """, scroll_box)
+        links = scroll_box.find_elements_by_tag_name('a')
+        names = [name.text for name in links if name.text != '']
+        # close button
+        self.driver.find_element_by_xpath("/html/body/div[6]/div/div/div[1]/div/div[2]")\
+            .click()
+        return names
+ # The scroll box for followers and following have different xpath codes
+    def _get_names_followers(self):
+        sleep(2)
+        scroll_box = self.driver.find_element_by_xpath("/html/body/div[6]/div/div/div[2]")
         last_ht, ht = 0, 1
         while last_ht != ht:
             last_ht = ht
